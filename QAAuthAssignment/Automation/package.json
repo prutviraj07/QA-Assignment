@@ -1,0 +1,13 @@
+{
+  "name": "qa-auth-automation",
+  "version": "1.0.0",
+  "description": "Playwright automation for User Authentication & Authorization (JWT) test scenarios",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "report": "playwright show-report ../Evidence/playwright-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.47.0"
+  }
+}

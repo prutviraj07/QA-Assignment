@@ -1,0 +1,11 @@
+ID,Category,Name,Email,Password,ConfirmPassword,ExpectedResult,Notes
+TD_01,Valid User,Ananya Rao,ananya.rao@example.com,Passw0rd1234,Passw0rd1234,201 Created,Baseline valid registration
+TD_02,Valid User,Rohit Verma,rohit.verma@example.com,SecureP@ss99,SecureP@ss99,201 Created,Second unique valid user
+TD_03,Duplicate Email,Neha Singh,ananya.rao@example.com,AnotherPass12,AnotherPass12,409 Conflict,Same email as TD_01 (already registered)
+TD_04,Duplicate Email (case variant),Neha Singh,ANANYA.RAO@EXAMPLE.COM,AnotherPass12,AnotherPass12,409 Conflict,Uppercase version of TD_01 email; must be treated as duplicate
+TD_05,Invalid Email Format,Kabir Mehta,kabir.mehtaexample.com,ValidPass123,ValidPass123,400 Bad Request,Missing @ symbol
+TD_06,Invalid Email Format,Priya Nair,priya@@example..com,ValidPass123,ValidPass123,400 Bad Request,Malformed domain with double dots
+TD_07,Weak Password (too short),Aditya Kapoor,aditya.kapoor@example.com,Pass12,Pass12,400 Bad Request,Only 6 characters, below 12-char minimum
+TD_08,Weak Password (letters only),Ishaan Gupta,ishaan.gupta@example.com,OnlyLettersPass,OnlyLettersPass,400 Bad Request,No digits present
+TD_09,Special/Unicode Characters,O'Neil Müller-Šarić,oneil.muller@example.com,Un1code#Pässw0rd,Un1code#Pässw0rd,201 Created or 400 (per Name charset policy),Tests apostrophe/hyphen/diacritics in Name and special chars in Password
+TD_10,Leading/Trailing Spaces," Aman Joshi ", " aman.joshi@example.com ",TrimTest0123,TrimTest0123,201 Created after trimming,Validates server trims whitespace from Name/Email before processing

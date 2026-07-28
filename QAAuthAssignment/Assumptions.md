@@ -1,0 +1,13 @@
+# Assumptions
+
+1. **Environment setup:** The application is assumed to be running locally (or on a reachable test/staging environment) with the frontend at a base URL (e.g. `http://localhost:3000`) and the backend Spring Boot API exposed at endpoints such as `/api/register` and `/api/login`. Automation configuration (`BASE_URL`) can be adjusted to point at any environment.
+
+2. **JWT behavior:** It is assumed the JWT is returned in the login API response body (and/or as an httpOnly cookie) and is attached by the frontend as a Bearer token on subsequent requests to protected routes/APIs. It is assumed the backend validates the token's signature and expiry on every protected request, not just on initial page load.
+
+3. **Token expiration:** No explicit expiry duration was specified in the assignment, so it is assumed a reasonable short-to-medium lived expiry (e.g. 15–60 minutes) is configured, after which the token is rejected with a 401 and the frontend redirects to Login. Exact expiry value should be confirmed with the development team and covered with a dedicated test once known.
+
+4. **Validation rules:** Field validation (Name 5–24 chars, Password 12+ chars with letters and numbers, Email format/uniqueness) is assumed to be enforced on both frontend (for UX) and backend (for security), with the backend being the source of truth. Behavior for edge cases not explicitly defined in the assignment (e.g. whether leading/trailing spaces are trimmed automatically, whether Unicode characters are permitted in Name) is assumed to follow common best practice (trim whitespace server-side) but is explicitly flagged in the boundary/test-data cases for developer confirmation.
+
+5. **Rate limiting scope:** The 10 attempts/hour/IP limit is assumed to apply per source IP address to the registration endpoint specifically (not globally across all endpoints), and is assumed to use either a fixed or rolling 1-hour window — the exact windowing strategy should be confirmed, as it affects the precise expected behavior at the reset boundary (TC_BND_RATE_03).
+
+6. **Real-world reference point:** In the absence of a live staging build of this specific application, the general shape of the auth flow (Register → Login → protected account area, redirect-to-login when unauthenticated) was cross-checked conceptually against a familiar consumer platform, [BookMyShow](https://in.bookmyshow.com/), purely as a sanity reference for what a typical production-grade registration/login/protected-page experience looks like. No BookMyShow-specific implementation details, code, or content were reproduced.
